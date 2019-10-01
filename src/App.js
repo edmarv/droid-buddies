@@ -1,31 +1,30 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import Card from './components/Card';
-import RoboInfo from './components/RoboInfo';
+import Card from "./components/Card";
+import RoboInfo from "./components/RoboInfo";
 
 class App extends React.PureComponent {
   state = {
     showModal: false,
     selectedUser: null,
-    users: [],
-  }
+    users: []
+  };
 
   async componentDidMount() {
-    const payload = await fetch('https://jsonplaceholder.typicode.com/users')
-    const data = await payload.json()
+    const payload = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await payload.json();
     this.setState({
-      users: data,
-    })
+      users: data
+    });
   }
 
   onCardClick = user => {
-    this.setState(prevState => 
-      ({
+    this.setState(prevState => ({
       showModal: !prevState.showModal,
-      selectedUser: user,
-    }))
-  }
+      selectedUser: user
+    }));
+  };
 
   render() {
     const { selectedUser, users } = this.state;
@@ -34,16 +33,13 @@ class App extends React.PureComponent {
       <div style={styles.container}>
         <h1>Droid Buddies</h1>
         <div style={styles.cardContainer}>
-        {
-          users.map(user => (
-            <Card user={user} onCardClick={() => this.onCardClick(user)}/>
-          ))
-        }
+          {users.map(user => (
+            <Card user={user} onCardClick={() => this.onCardClick(user)} />
+          ))}
         </div>
-        {
-          this.state.showModal &&
-          <RoboInfo selectedUser={selectedUser} onClose={this.onCardClick}/>
-        }
+        {this.state.showModal && (
+          <RoboInfo selectedUser={selectedUser} onClose={this.onCardClick} />
+        )}
       </div>
     );
   }
@@ -51,21 +47,21 @@ class App extends React.PureComponent {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center"
   },
   cardContainer: {
-    backgroundColor: '#6EC6FF',
-    width: '60%',
-    height: '100%',
+    backgroundColor: "#6EC6FF",
+    width: "60%",
+    height: "100%",
     borderRadius: 15,
-    alignSelf: 'center',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    alignSelf: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center"
   }
-}
+};
 
 export default App;
