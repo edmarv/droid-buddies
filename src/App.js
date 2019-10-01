@@ -1,26 +1,71 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Card from './components/Card';
+import RoboInfo from './components/RoboInfo';
+
+class App extends React.PureComponent {
+  state = {
+    showModal: false,
+    selectedUser: null,
+    users: [],
+  }
+
+  async componentDidMount() {
+    const payload = await fetch('https://jsonplaceholder.typicode.com/users')
+    const data = await payload.json()
+    this.setState({
+      users: data,
+    })
+  }
+
+  onCardClick = user => {
+    this.setState(prevState => 
+      ({
+      showModal: !prevState.showModal,
+      selectedUser: user,
+    }))
+  }
+
+  render() {
+    const { selectedUser, users } = this.state;
+
+    return (
+      <div style={styles.container}>
+        <h1>Droid Buddies</h1>
+        <div style={styles.cardContainer}>
+        {
+          users.map(user => (
+            <Card user={user} onCardClick={() => this.onCardClick(user)}/>
+          ))
+        }
+        </div>
+        {
+          this.state.showModal &&
+          <RoboInfo selectedUser={selectedUser} onClose={this.onCardClick}/>
+        }
+      </div>
+    );
+  }
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+  },
+  cardContainer: {
+    backgroundColor: '#6EC6FF',
+    width: '60%',
+    height: '100%',
+    borderRadius: 15,
+    alignSelf: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  }
 }
 
 export default App;
