@@ -3,8 +3,8 @@ import React from 'react'
 const RoboInfo = ({selectedUser, onClose}) => {
   return (
     <div style={{
-      height: '80vh',
-      width: '50vw',
+      minHeight: '80vh',
+      minWidth: '50vw',
       borderRadius: 25,
       backgroundColor: '#2962FF',
       position: 'absolute',
@@ -27,11 +27,11 @@ const RoboInfo = ({selectedUser, onClose}) => {
         display: 'flex',
         flex: 1,
         justifyContent: 'space-between',
+        padding: 20,
       }}>
         <div style={{
           borderRadius: 5,
           backgroundColor: '#2196F3',
-          margin: 25,
           flex: 1,
           padding: 20,
         }}>
@@ -51,9 +51,6 @@ const RoboInfo = ({selectedUser, onClose}) => {
             borderRadius: 5,
             flex: 1,
             backgroundColor: '#18FFFF',
-            margin: 25,
-            justifyContent: 'flex-end',
-            display: 'flex',
           }}
         >
 
@@ -61,9 +58,8 @@ const RoboInfo = ({selectedUser, onClose}) => {
           alt="robo avatar"
           src={`https://robohash.org/${selectedUser.username}`}
           style={{
-            height: '70%',
-            width: 'auto',
-            alignSelf: 'flex-end'
+            height: 'auto',
+            minWidth: '100%',
           }}
         />
         </div>
